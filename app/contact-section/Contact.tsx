@@ -6,7 +6,7 @@ import AnimatedBody from "../animations/AnimatedBody";
 import AnimatedTitle from "../animations/AnimatedTitle";
 import AnimatedWords2 from "../animations/AnimatedWords2";
 import { motion } from "framer-motion";
-import newImageIcon from "../../public/profile2.svg"; // Update the path accordingly
+import newImageIcon from "../../public/profile2.png"; // Update the path accordingly
 import heartIcon from "../../public/heart icon.png";
 
 const Contact = () => {
