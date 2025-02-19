@@ -18,7 +18,7 @@ const Reviews = () => {
           style={`flex max-w-[500px] flex-col items-start text-left pr-5 ${monaSans.className} font-extrabold uppercase leading-[0.9em] text-[#e4ded7] sm:max-w-full sm:flex-row sm:items-center sm:justify-center sm:text-center lg:text-center text-[clamp(70px,14vw,155.04px)]`}
         />
         <AnimatedBody
-          text="Real Stories from Clients and Collaborators Who Have Experienced My Work Firsthand"
+          text="some reviews from my published application"
           className="w-[90%] text-center text-[14px] font-semibold uppercase sm:w-[500px] md:w-[550px] md:text-[16px]"
         />
       </div>
@@ -53,11 +53,11 @@ const Reviews = () => {
           amount: "some",
           once: true,
         }}
-        href="https://contra.com/victorwilliams"
+        href="https://www.upwork.com/freelancers/~014d1fea38ea69aea9?mp_source=share"
         target="_blank"
-        className="mt-10 mb-5 sm:mb-0 sm:mt-20"
-      >
-        <Image src={hireMe} alt={"hire me"} className="w-full" />
+        className="mt-10 mb-5 text-center text-xl font-bold text-white transition-all duration-300 hover:text-gray-300 sm:mb-0 sm:mt-20 sm:text-2xl lg:text-xl"
+        >
+        Hire me on UpWork!
       </motion.a>
 
       {/* <motion.div
