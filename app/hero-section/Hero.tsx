@@ -15,7 +15,7 @@ const Hero = () => {
       animate="animate"
     >
       {/* Overlay without mix-blend-color */}
-      <motion.div className="absolute left-0 top-0 right-0 bottom-0 h-full w-full bg-[#0E1016] opacity-50"></motion.div>
+      <motion.div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full bg-[#0E1016] opacity-50"></motion.div>
 
       <div className="absolute top-10 flex justify-between sm:w-[90%] lg:max-w-[1440px]">
         <div>
@@ -37,55 +37,34 @@ const Hero = () => {
           </Link>
         </div>
 
+        {/* Social Media Links */}
         <div className="flex gap-10 text-[#e4ded7] sm:gap-12 md:gap-14 lg:gap-14">
-          <Link
-            href="https://github.com/victorcodess"
-            target="_blank"
-            aria-label="View GitHub Profile"
-          >
-            <motion.p
-              className="text-[16px] font-bold text-[#e4ded7] md:text-[16px]"
-              variants={bodyAnimation}
+          {[
+            { label: "GH", url: "https://github.com/rohithsidd1" },
+            {
+              label: "LN",
+              url: "https://www.linkedin.com/in/rohith-siddanathi-519b63350",
+            },
+            {
+              label: "UW",
+              url: "https://www.upwork.com/freelancers/~014d1fea38ea69aea9?mp_source=share",
+            },
+            { label: "BE", url: "https://www.behance.net/rohithsiddanathi" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              href={item.url}
+              target="_blank"
+              aria-label={`View ${item.label} Profile`}
             >
-              GH
-            </motion.p>
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/rohith-siddanathi-519b63350"
-            target="_blank"
-            aria-label="View LinkedIn Profile"
-          >
-            <motion.p
-              className="text-[16px] font-bold text-[#e4ded7] md:text-[16px]"
-              variants={bodyAnimation}
-            >
-              LN
-            </motion.p>
-          </Link>
-          <Link
-            href="https://twitter.com/victorwill__"
-            target="_blank"
-            aria-label="View Twitter Profile"
-          >
-            <motion.p
-              className="text-[16px] font-bold text-[#e4ded7] md:text-[16px]"
-              variants={bodyAnimation}
-            >
-              TW
-            </motion.p>
-          </Link>
-          <Link
-            href="https://contra.com/victorwilliams"
-            target="_blank"
-            aria-label="View Contra Profile"
-          >
-            <motion.p
-              className="text-[16px] font-bold text-[#e4ded7] md:text-[16px]"
-              variants={bodyAnimation}
-            >
-              CO
-            </motion.p>
-          </Link>
+              <motion.p
+                className="text-[16px] font-bold text-[#e4ded7]"
+                variants={bodyAnimation}
+              >
+                {item.label}
+              </motion.p>
+            </Link>
+          ))}
         </div>
       </div>
 
@@ -98,7 +77,7 @@ const Hero = () => {
             style="inline-block overflow-hidden pt-1 -mr-4 sm:-mr-5 md:-mr-7 lg:-mr-9 -mb-1 sm:-mb-2 md:-mb-3 lg:-mb-4"
           />
 
-<motion.div
+          <motion.div
             className="absolute bottom-[-110px] mx-auto text-center sm:bottom-[-100px] md:bottom-[-130px] lg:bottom-[-80px]"
             variants={imageAnimation}
           >
