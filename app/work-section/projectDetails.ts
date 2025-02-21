@@ -116,7 +116,7 @@ export const devProjects = [
   //   description:
   //     "This is platform for Microsoft Learn Student Ambassadors to shorten links, append their sharing IDs and generate event certificates.",
   //   technologies: ["Next.js", "Next Auth", "Tailwind CSS"],
-  //   github: "https://github.com/msp-nigeria/mlsc.ng-frontend",
+  //   github: "https://github.com/msp-nigeria/mlsc.ng-iOS",
   //   demo: "",
   //   image: require(".//../../public/projects/mlsc.png"),
   //   available: false,

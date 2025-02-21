@@ -13,35 +13,34 @@ const syne = Syne({
 export const metadata: Metadata = {
   title: "Rohith Siddanathi — iOS Dev",
   description:
-    "Frontend Engineer and Web Designer, currently at Kora. Focused on interfaces and experiences, working remotely from Lagos, Nigeria.",
+    "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
   generator: "Next.js",
   applicationName: "Rohith Siddanathi",
   keywords: [
     "freelance",
     "developer",
     "freelance developer",
-    "frontend",
+    "iOS",
     "react",
-    "frontend developer",
-    "frontend engineer",
+    "iOS developer",
+    "iOS engineer",
     "creative",
     "creative developer",
     "creative engineer",
     "tech",
-    "nigeria",
     "software",
     "software developer",
     "portfolio",
-    "frontend developer portfolio",
+    "iOS developer portfolio",
     "creative developer portfolio",
   ],
   colorScheme: "dark",
   openGraph: {
     title: "Rohith Siddanathi — iOS Dev",
     description:
-      "Frontend Engineer and Web Designer, currently at Kora. Focused on interfaces and experiences, working remotely from Lagos, Nigeria.",
-    url: "https://www.victorwilliams.me/",
-    siteName: "www.victorwilliams.me",
+      "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
+    url: "https://rohithsiddanathi.netlify.app/",
+    siteName: "rohithsiddanathi.netlify.app",
     images: [
       {
         url: "https://user-images.githubusercontent.com/84178696/228620835-e3cc5c9b-72fc-4f54-a628-407ef7b650f5.png",
@@ -57,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rohith Siddanathi — iOS Dev",
     description:
-      "Frontend Engineer and Web Designer, currently at Kora. Focused on interfaces and experiences, working remotely from Lagos, Nigeria.",
+      "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
     creator: "Rohith Siddanathi — iOS Dev",
     creatorId: "1243720976552144897",
     images: [
