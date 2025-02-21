@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "rohithsiddanathi.netlify.app",
     images: [
       {
-        url: "https://imgur.com/a/wbhKPDR",
+        url: "https://github.com/rohithsidd1/my-portfolio/blob/main/public/pro.png",
         width: 1200,
         height: 630,
         alt: "Rohith Siddanathi — iOS Dev",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     creator: "Rohith Siddanathi — iOS Dev",
     creatorId: "1243720976552144897",
     images: [
-      "https://imgur.com/a/wbhKPDR",
+      "https://github.com/rohithsidd1/my-portfolio/blob/main/public/pro.png",
     ],
   },
   robots: {
