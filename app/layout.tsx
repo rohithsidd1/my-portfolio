@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "rohithsiddanathi.netlify.app",
     images: [
       {
-        url: "https://github.com/rohithsidd1/my-portfolio/blob/main/public/pro.png",
+        url: "",
         width: 1200,
         height: 630,
         alt: "Rohith Siddanathi — iOS Dev",
@@ -59,9 +59,7 @@ export const metadata: Metadata = {
       "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
     creator: "Rohith Siddanathi — iOS Dev",
     creatorId: "1243720976552144897",
-    images: [
-      "https://github.com/rohithsidd1/my-portfolio/blob/main/public/pro.png",
-    ],
+    images: [""],
   },
   robots: {
     index: true,
