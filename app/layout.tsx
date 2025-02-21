@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     description:
       "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
     creator: "Rohith Siddanathi — iOS Dev",
-    creatorId: "1243720976552144897",
+    creatorId: "",
     images: [""],
   },
   robots: {
