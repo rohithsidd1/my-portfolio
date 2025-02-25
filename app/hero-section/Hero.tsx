@@ -5,6 +5,10 @@ import { motion } from "framer-motion";
 import { imageAnimation, bodyAnimation } from "../animations/animations";
 import AnimatedWords from "../animations/AnimatedWords";
 import bookCallIcon from "../../public/icon.svg"; // Update the path as needed
+import githubIcon from "../../public/github-icon.png"; // Update the path as needed
+import linkedinIcon from "../../public/linkedin-icon.png"; // Update the path as needed
+import upworkIcon from "../../public/upwork-icon.png"; // Update the path as needed
+import behanceIcon from "../../public/behance-icon.png"; // Update the path as needed
 
 const Hero = () => {
   return (
@@ -39,33 +43,31 @@ const Hero = () => {
 
         {/* Social Media Links */}
         <div className="flex gap-10 text-[#e4ded7] sm:gap-12 md:gap-14 lg:gap-14">
-          {[
-            { label: "GH", url: "https://github.com/rohithsidd1" },
-            {
-              label: "LN",
-              url: "https://www.linkedin.com/in/rohith-siddanathi-519b63350",
-            },
-            {
-              label: "UW",
-              url: "https://www.upwork.com/freelancers/~014d1fea38ea69aea9?mp_source=share",
-            },
-            { label: "BE", url: "https://www.behance.net/rohithsiddanathi" },
-          ].map((item, index) => (
-            <Link
-              key={index}
-              href={item.url}
-              target="_blank"
-              aria-label={`View ${item.label} Profile`}
-            >
-              <motion.p
-                className="text-[16px] font-bold text-[#e4ded7]"
-                variants={bodyAnimation}
-              >
-                {item.label}
-              </motion.p>
-            </Link>
-          ))}
-        </div>
+  {[
+    { icon: githubIcon, url: "https://github.com/rohithsidd1" },
+    { icon: linkedinIcon, url: "https://www.linkedin.com/in/rohith-siddanathi-519b63350/" },
+    { icon: upworkIcon, url: "https://www.upwork.com/freelancers/~014d1fea38ea69aea9?mp_source=share" },
+    { icon: behanceIcon, url: "https://www.behance.net/rohithsiddanathi" },
+  ].map((item, index) => (
+    <Link
+      key={index}
+      href={item.url}
+      target="_blank"
+      aria-label={`View ${item.icon} Profile`}
+    >
+      <motion.div
+        className="flex items-center justify-center"
+        variants={bodyAnimation}
+      >
+        <Image
+          src={item.icon}
+          alt={`View ${item.icon} Profile`}
+          className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-10 lg:h-10 object-contain"
+        />
+      </motion.div>
+    </Link>
+  ))}
+</div>
       </div>
 
       <div className="-mt-36 flex flex-col items-center justify-center sm:-mt-20 lg:my-40 lg:-mt-2 lg:py-40 ">

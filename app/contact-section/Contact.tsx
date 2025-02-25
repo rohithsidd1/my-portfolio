@@ -8,6 +8,10 @@ import AnimatedWords2 from "../animations/AnimatedWords2";
 import { motion } from "framer-motion";
 import newImageIcon from "../../public/profile2.png"; // Update the path accordingly
 import heartIcon from "../../public/heart icon.png";
+import githubIcon from "../../public/github-icon.png"; // Update the path as needed
+import linkedinIcon from "../../public/linkedin-icon.png"; // Update the path as needed
+import upworkIcon from "../../public/upwork-icon.png"; // Update the path as needed
+import behanceIcon from "../../public/behance-icon.png"; // Update the path as needed
 
 const Contact = () => {
   return (
@@ -56,23 +60,6 @@ const Contact = () => {
                   className={"bor der w-[190px] pr-[40px] md:w-[170px] md:pr-0"}
                 />
               </Link>
-              {/* <AnimatedBody
-                text={"or"}
-                className={
-                  "bor der -mb-1 ml-2 inline-block overflow-hidden sm:-mb-2 md:-ml-[8px] md:-mb-3 lg:-mb-4"
-                }
-              /> */}
-              {/* <Link
-                href="https://cal.com/victorwilliams/30min"
-                target="_blank"
-                aria-label="Send me an email"
-                className="bor der mt-1 w-[110px] flex-1 underline underline-offset-2 hover:no-underline sm:mt-2 sm:w-[147px] md:mt-3 md:-ml-[3px] md:w-[120px] lg:mt-4"
-              >
-                <AnimatedBody
-                  text={"Book a call"}
-                  className={"w-[110px] md:w-[120px]"}
-                />
-              </Link> */}
             </div>
           </div>
 
@@ -82,13 +69,10 @@ const Contact = () => {
               target="_blank"
               aria-label="View GitHub Profile"
             >
-              <AnimatedTitle
-                text={"GH"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
+              <Image
+                src={githubIcon}
+                alt="GitHub Profile"
+                className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12"
               />
             </Link>
             <Link
@@ -96,57 +80,34 @@ const Contact = () => {
               target="_blank"
               aria-label="View LinkedIn Profile"
             >
-              <AnimatedTitle
-                text={"LN"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
+              <Image
+                src={linkedinIcon}
+                alt="LinkedIn Profile"
+                className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12"
               />
             </Link>
             <Link
               href="https://www.upwork.com/freelancers/~014d1fea38ea69aea9?mp_source=share"
               target="_blank"
-              aria-label="View Twitter Profile"
+              aria-label="View Upwork Profile"
             >
-              <AnimatedTitle
-                text={"UW"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
+              <Image
+                src={upworkIcon}
+                alt="Upwork Profile"
+                className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12"
               />
             </Link>
             <Link
               href="https://www.behance.net/rohithsiddanathi"
               target="_blank"
-              aria-label="View Instagram Profile"
+              aria-label="View Behance Profile"
             >
-              <AnimatedTitle
-                text={"BE"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
-              />
+              <Image
+                src={behanceIcon}
+                alt="Behance Profile"
+                className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-10 object-contain"
+                />
             </Link>
-            {/* <Link
-              href="https://blog.victorwilliams.me/"
-              target="_blank"
-              aria-label="View Hashnode Profile"
-            >
-              <AnimatedTitle
-                text={"HN"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
-              />
-            </Link> */}
           </div>
         </div>
       </div>
