@@ -78,7 +78,7 @@ export const devProjects = [
   },
   {
     id: 6,
-    name: "TaskMaster",
+    name: "Brad.AI",
     description:
       "Brad.ai is an intelligent, multilingual chatbot application designed to provide seamless interactions across various use cases.",
     technologies: ["SwiftUI", "MVC", "RESTful APIs"],
