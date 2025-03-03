@@ -99,17 +99,17 @@ export const devProjects = [
     image: require(".//../../public/projects/mc.png"),
     available: true,
   },
-  // {
-  //   id: 6,
-  //   name: "Carpooling Service",
-  //   description:
-  //     "TMTM helps Covenant University students find fellow students who are headed to the same location, so they can share a ride and split the cost.",
-  //   technologies: ["Material UI", "React", "Formik"],
-  //   github: "https://github.com/victorcodess/carpooling-service",
-  //   demo: "",
-  //   image: require(".//../../public/projects/carpool-new.webp"),
-  //   available: false,
-  // },
+  {
+    id: 6,
+    name: "Brad.ai",
+    description:
+      "Brad.ai is an intelligent, multilingual chatbot application designed to provide seamless interactions across various use cases.",
+    technologies: ["SwiftUI", "MVVM", "RESTful APIs"],
+    github: "https://github.com/rohithsidd1/brad.ai",
+    demo: "https://www.behance.net/gallery/220538585/Bradai",
+    image: require(".//../../public/projects/br.png"),
+    available: true,
+  },
   // {
   //   id: 7,
   //   name: "MLSC.ng",
