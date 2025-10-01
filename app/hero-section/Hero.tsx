@@ -112,16 +112,16 @@ const Hero = () => {
           variants={bodyAnimation}
         >
           <p className="z-50 text-center text-[16px] font-medium text-[#e4ded7] md:text-[20px] lg:text-left">
-            iOS Mobile Application Developer and Designer, at{" "}
+            Co-Founder & Designer at{" "}
             <Link
-              href="https://www.renote.ai/"
+              href="https://www.pacegensolutions.com"
               target="_blank"
               className="underline underline-offset-2 hover:no-underline"
-              aria-label="ReNoteAI Website"
+              aria-label="PaceGen"
             >
-              ReNoteAI,
-            </Link>{" "}
-            currently available for work.
+              PaceGen
+            </Link>
+            {" "}• Crafting digital experiences • Open for exciting projects.
           </p>
         </motion.div>
 
