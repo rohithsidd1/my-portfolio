@@ -112,7 +112,7 @@ const Hero = () => {
           variants={bodyAnimation}
         >
           <p className="z-50 text-center text-[16px] font-medium text-[#e4ded7] md:text-[20px] lg:text-left">
-            Co-Founder & Designer at{" "}
+            Co-Founder & Full-Stack Developer at{" "}
             <Link
               href="https://www.pacegensolutions.com"
               target="_blank"
@@ -121,7 +121,7 @@ const Hero = () => {
             >
               PaceGen
             </Link>
-            {" "}• Crafting digital experiences • Open for exciting projects.
+            {" "}• Building end-to-end solutions • Ready to code your vision.
           </p>
         </motion.div>
 
