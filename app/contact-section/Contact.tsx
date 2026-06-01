@@ -6,7 +6,6 @@ import AnimatedBody from "../animations/AnimatedBody";
 import AnimatedTitle from "../animations/AnimatedTitle";
 import AnimatedWords2 from "../animations/AnimatedWords2";
 import { motion } from "framer-motion";
-import newImageIcon from "../../public/profile2.png"; // Update the path accordingly
 import heartIcon from "../../public/heart icon.png";
 import githubIcon from "../../public/github-icon.png"; // Update the path as needed
 import linkedinIcon from "../../public/linkedin-icon.png"; // Update the path as needed
@@ -30,11 +29,6 @@ const Contact = () => {
             style={
               "flex max-w-[500px] flex-col items-start text-left text-[150px] font-extrabold uppercase leading-[0.9em] text-[#e4ded7] sm:max-w-full sm:flex-row sm:items-center sm:justify-center sm:text-center sm:text-[170px] md:text-[200px] lg:text-center lg:text-[270px] xl:text-[390px]"
             }
-          />
-          <Image
-            src={newImageIcon} // Replace with the new image
-            alt="New Icon"
-            className="heartbeat md:-bottom-18 absolute -bottom-5 left-64 w-[120px] sm:-bottom-14 sm:left-[40%] md:left-[40%] md:w-[150px] lg:-bottom-8 lg:left-[42%] lg:w-[230px]"
           />
         </div>
 
