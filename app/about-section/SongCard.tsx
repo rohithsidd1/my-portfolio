@@ -4,14 +4,16 @@ import Link from "next/link";
 
 const SongCard = ({ title, artist, image, link }: SongProps) => {
   return (
-    <Link href={link} target="_blank" aria-label="Check out song on Spotify">
+    <Link href={link} target="_blank" aria-label={`Listen to ${title} on Spotify`}>
       <div
         className={`relative flex h-[138px] w-[195px] items-center justify-center overflow-hidden rounded-xl py-0 sm:h-[140px] sm:w-[200px] md:h-[160px] md:w-[250px] lg:h-[190px] lg:w-[270px]`}
       >
         <Image
           src={image}
           alt={title}
-          className="w-full items-stretch justify-center rounded-xl bg-cover bg-center"
+          fill
+          sizes="(max-width: 768px) 200px, 270px"
+          className="rounded-xl object-cover"
         />
         <div className=" hidden h-[150%] w-full bg-gradient-to-t from-black to-transparent"></div>
 

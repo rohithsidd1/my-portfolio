@@ -286,6 +286,35 @@ const Hero = () => {
               <FontAwesomeIcon icon={faCode} className="text-[16px] sm:text-[20px] md:text-[24px]" />
             </span>
           </motion.div>
+
+          {/* Violet pill — UI/UX Design (top-center) */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 4.55, duration: 0.4, ease: "easeOut" }}
+            className={`${monaSans.className} absolute left-[4%] top-[58%] hidden -rotate-[4deg] flex-col items-start rounded-lg bg-[#9D8CF0] px-4 py-2.5 text-[#0E1016] shadow-2xl lg:flex`}
+          >
+            <span className="text-[20px] font-black uppercase leading-[0.92]">
+              UI / UX
+              <br />
+              Design
+            </span>
+          </motion.div>
+
+          {/* Violet pill — Figma & Prototyping (lower-right, on the cap) */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 4.6, duration: 0.4, ease: "easeOut" }}
+            className={`${monaSans.className} absolute right-[5%] top-[58%] hidden rotate-[7deg] items-center gap-1.5 rounded-md bg-[#9D8CF0] px-4 py-2.5 text-[#0E1016] shadow-2xl lg:flex`}
+          >
+            <span className="text-[16px] font-black uppercase leading-[0.95] md:text-[18px]">
+              Figma • Framer
+              <br />
+              Prototyping
+            </span>
+            <FontAwesomeIcon icon={faAsterisk} className="text-[11px]" />
+          </motion.div>
       </motion.div>
     </motion.section>
   );
