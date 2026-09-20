@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     "creative developer portfolio",
   ],
   colorScheme: "dark",
+  metadataBase: new URL("https://rohithsiddanathi.netlify.app"),
   openGraph: {
     title: "Rohith Siddanathi — Full-Stack Developer",
     description:
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     siteName: "rohithsiddanathi.netlify.app",
     images: [
       {
-        url: "",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Rohith Siddanathi — Full-Stack Developer",
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
       "Full-Stack Developer, currently open to work. Focused on interfaces and experiences.",
     creator: "Rohith Siddanathi — Full-Stack Developer",
     creatorId: "",
-    images: [""],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
