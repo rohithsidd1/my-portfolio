@@ -11,19 +11,19 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Rohith Siddanathi — iOS Dev",
+  title: "Rohith Siddanathi — Full-Stack Developer",
   description:
-    "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
+    "Full-Stack Developer, currently open to work. Focused on interfaces and experiences.",
   generator: "Next.js",
   applicationName: "Rohith Siddanathi",
   keywords: [
     "freelance",
     "developer",
     "freelance developer",
-    "iOS",
+    "full-stack",
     "react",
-    "iOS developer",
-    "iOS engineer",
+    "full-stack developer",
+    "full-stack engineer",
     "creative",
     "creative developer",
     "creative engineer",
@@ -31,14 +31,14 @@ export const metadata: Metadata = {
     "software",
     "software developer",
     "portfolio",
-    "iOS developer portfolio",
+    "full-stack developer portfolio",
     "creative developer portfolio",
   ],
   colorScheme: "dark",
   openGraph: {
-    title: "Rohith Siddanathi — iOS Dev",
+    title: "Rohith Siddanathi — Full-Stack Developer",
     description:
-      "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
+      "Full-Stack Developer, currently open to work. Focused on interfaces and experiences.",
     url: "https://rohithsiddanathi.netlify.app/",
     siteName: "rohithsiddanathi.netlify.app",
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         url: "",
         width: 1200,
         height: 630,
-        alt: "Rohith Siddanathi — iOS Dev",
+        alt: "Rohith Siddanathi — Full-Stack Developer",
       },
     ],
     locale: "en-US",
@@ -54,10 +54,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rohith Siddanathi — iOS Dev",
+    title: "Rohith Siddanathi — Full-Stack Developer",
     description:
-      "iOS Mobile application Developer, currently open to work. Focused on interfaces and experiences.",
-    creator: "Rohith Siddanathi — iOS Dev",
+      "Full-Stack Developer, currently open to work. Focused on interfaces and experiences.",
+    creator: "Rohith Siddanathi — Full-Stack Developer",
     creatorId: "",
     images: [""],
   },

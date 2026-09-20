@@ -74,6 +74,9 @@ const ProjectCard = ({
             fill
             sizes="(max-width: 768px) 90vw, 46vw"
             className="object-cover"
+            priority={index === 0}
+            loading={index === 0 ? "eager" : "lazy"}
+            placeholder="blur"
           />
         </div>
       </div>

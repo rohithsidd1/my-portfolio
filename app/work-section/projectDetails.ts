@@ -1,3 +1,12 @@
+import BudgetCaddie from "../../public/projects/BudgetCaddie.webp";
+import renoteAI from "../../public/projects/renoteAI.webp";
+import Skipit from "../../public/projects/Skipit.webp";
+import substrack from "../../public/projects/substrack.webp";
+import Fynd from "../../public/projects/Fynd.webp";
+import WorkFlow from "../../public/projects/WorkFlow.webp";
+import type { StaticImageData } from "next/image";
+import bradai from "../../public/projects/bradai.webp";
+
 export type ProjectProps = {
   id: number;
   name: string;
@@ -5,7 +14,7 @@ export type ProjectProps = {
   technologies: string[];
   github: string;
   demo: string;
-  image: string;
+  image: StaticImageData;
   available: boolean;
 };
 
@@ -18,7 +27,7 @@ export const devProjects = [
     technologies: ["SwiftUI", "MVVM", "Plaid", "AWS Cognito"],
     github: "https://github.com/rohithsidd1/BudgetCaddie",
     demo: "https://www.behance.net/gallery/250404163/BudgetCaddie",
-    image: require(".//../../public/projects/BudgetCaddie.svg"),
+    image: BudgetCaddie,
     available: true,
   },
   {
@@ -29,7 +38,7 @@ export const devProjects = [
     technologies: ["SwiftUI", "Vision", "SSO", "RESTful APIs"],
     github: "https://github.com/rohithsidd1/ReNoteAI",
     demo: "https://www.behance.net/gallery/219266041/ReNoteAI",
-    image: require(".//../../public/projects/renoteAI.svg"),
+    image: renoteAI,
     available: true,
   },
   {
@@ -40,7 +49,7 @@ export const devProjects = [
     technologies: ["React Native", "Expo", "Supabase"],
     github: "https://github.com/rohithsidd1/Skipit",
     demo: "https://www.behance.net/gallery/250394935/Skipit",
-    image: require(".//../../public/projects/Skipit.svg"),
+    image: Skipit,
     available: true,
   },
   {
@@ -51,7 +60,7 @@ export const devProjects = [
     technologies: ["SwiftUI", "MVVM", "User Defaults"],
     github: "https://github.com/rohithsidd1/SubsTrack",
     demo: "https://www.behance.net/gallery/219256307/SubsTrack",
-    image: require(".//../../public/projects/substrack.svg"),
+    image: substrack,
     available: true,
   },
   {
@@ -62,18 +71,18 @@ export const devProjects = [
     technologies: ["SwiftUI", "Google APIs", "MapKit"],
     github: "https://github.com/rohithsidd1/Fynd",
     demo: "https://www.behance.net/gallery/219264729/Fynd-For-You",
-    image: require(".//../../public/projects/Fynd.svg"),
+    image: Fynd,
     available: true,
   },
   {
     id: 5,
     name: "WorkFlow",
     description:
-      "WorkFlow is a powerful iOS app designed to streamline productivity and task management of your daily work stream.",
+      "WorkFlow is a powerful full-stack app designed to streamline productivity and task management of your daily work stream.",
     technologies: ["SwiftUI", "Core Data", "Core Animations"],
     github: "https://github.com/rohithsidd1/WorkFlow",
     demo: "https://www.behance.net/gallery/219262465/WorkFlow",
-    image: require(".//../../public/projects/WorkFlow.svg"),
+    image: WorkFlow,
     available: true,
   },
   {
@@ -84,55 +93,7 @@ export const devProjects = [
     technologies: ["SwiftUI", "MVC", "RESTful APIs"],
     github: "https://github.com/rohithsidd1/Brad.ai",
     demo: "https://www.behance.net/gallery/220538585/Bradai",
-    image: require(".//../../public/projects/bradai.svg"),
+    image: bradai,
     available: true,
-  },
-];
-
-export const designProjects = [
-  {
-    id: 1,
-    name: "Hebron Statup Lab Website",
-    description:
-      "SkyWatch is a convenient and user-friendly tool that allows you to quickly and easily check the current.",
-    technologies: ["UX Research", "UI Design", "Prototyping"],
-    github: "",
-    demo: "",
-    image: "/_next/image?url=%2F..%2Fpublic%2Fprojects%2Fhsl.webp&w=1920&q=75",
-    available: false,
-  },
-  {
-    id: 2,
-    name: "RAGS Scrubs Website",
-    description:
-      "An image generator website that allows users to generate, combine, and download images.",
-    technologies: ["UX Research", "UI Design", "Prototyping"],
-    github: "",
-    demo: "",
-    image: "/_next/image?url=%2F..%2Fpublic%2Fprojects%2Frags.webp&w=1920&q=75",
-    available: false,
-  },
-  {
-    id: 3,
-    name: "Crown Branding Agency Website",
-    description:
-      "A website that reduces the length of your URL using Bit.ly's API",
-    technologies: ["UX Research", "UI Design", "Prototyping"],
-    github: "",
-    demo: "",
-    image:
-      "/_next/image?url=%2F..%2Fpublic%2Fprojects%2Fcrown.webp&w=1920&q=75",
-    available: false,
-  },
-  {
-    id: 4,
-    name: "Titi Mobile App",
-    description:
-      "TMTM helps you find people who are headed to the same location as you, so you can share a ride and split the cost with them.",
-    technologies: ["UX Research", "UI Design", "Prototyping"],
-    github: "",
-    demo: "",
-    image: "/_next/image?url=%2F..%2Fpublic%2Fprojects%2Ftiti.webp&w=1920&q=75",
-    available: false,
   },
 ];

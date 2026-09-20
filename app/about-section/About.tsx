@@ -25,7 +25,7 @@ const About = () => {
           <div className="mb-10 flex w-[100%] flex-col gap-4 text-[18px] font-medium  leading-relaxed tracking-wide text-[#e4ded7] md:mb-16 md:gap-6 md:text-[20px] md:leading-relaxed lg:mb-16  lg:max-w-[90%] lg:text-[24px] ">
             <AnimatedBody
               text={
-                "I specialize in developing high-performance iOS applications with sleek UI/UX for startups in AI. I’m passionate about building mobile solutions that make a real impact."
+                "I specialize in developing high-performance full-stack applications with sleek UI/UX for startups in AI. I’m passionate about building solutions that make a real impact."
               }
             />
             <AnimatedBody
@@ -36,7 +36,7 @@ const About = () => {
             />
             <AnimatedBody
               text={
-                "Beyond my work as an iOS developer, I’m an active leader in tech communities on campus. As a member in the Startups and so many events, I’ve led workshops and mentored other members in mobile app development and Swift programming."
+                "Beyond my work as a full-stack developer, I’m an active leader in tech communities on campus. As a member in the Startups and so many events, I’ve led workshops and mentored other members in mobile app development and Swift programming."
               }
             />
             <AnimatedBody
@@ -99,13 +99,15 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className="mt-10 flex flex-col md:-mt-0 lg:mt-28">
-          <SongCarousel />
-          <AnimatedBody
-            text="A few songs I can recommend if you're looking for some fresh tunes :)"
-            className="absolute bottom-10 right-0 left-0 mx-auto w-[90%] text-center text-[14px] font-semibold uppercase text-[#e4ded7] sm:w-[500px] md:bottom-12 md:w-[550px] md:text-[16px] "
-          />
-        </div>
+      </div>
+      <div className="mt-10 w-full md:-mt-0 lg:mt-28">
+        <SongCarousel />
+      </div>
+      <div className="mx-auto w-[90%]">
+        <AnimatedBody
+          text="A few songs I can recommend if you're looking for some fresh tunes :)"
+          className="mx-auto mt-6 w-full text-center text-[14px] font-semibold uppercase text-[#e4ded7] sm:w-[500px] md:w-[550px] md:text-[16px]"
+        />
       </div>
     </section>
   );

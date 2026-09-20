@@ -9,18 +9,18 @@ import githubIcon from "../../public/github-icon.png"; // Update the path as nee
 import linkedinIcon from "../../public/linkedin-icon.png"; // Update the path as needed
 import upworkIcon from "../../public/upwork-icon.png"; // Update the path as needed
 import behanceIcon from "../../public/behance-icon.png"; // Update the path as needed
-import personImage from "../../public/person.png";
+import personImage from "../../public/person.webp";
 
 const Hero = () => {
   return (
     <motion.section
-      className="relative z-10 flex w-full flex-col overflow-hidden bg-[#0E1016] pb-10 pt-32 text-[#e4ded7] sm:pt-28 lg:pt-28"
+      className="relative z-10 flex w-full flex-col overflow-hidden bg-[#0E1016] pb-10 pt-32 text-[#e4ded7] sm:pt-28 md:pt-32 lg:pt-40"
       id="home"
       initial="initial"
       animate="animate"
     >
       {/* ───────────────────────── HEADER (kept intact) ───────────────────────── */}
-      <div className="absolute left-1/2 top-10 z-30 flex w-[90%] -translate-x-1/2 justify-between lg:max-w-[1440px]">
+      <div className="absolute left-1/2 top-10 z-30 flex w-[90%] -translate-x-1/2 justify-between md:top-12 lg:top-14 lg:max-w-[1440px]">
         <div>
           <Link href="#home" aria-label="Rohith Siddanathi — Home">
             <motion.div
@@ -70,7 +70,7 @@ const Hero = () => {
       </div>
 
       {/* ───────────────────────── CONTENT ───────────────────────── */}
-      <div className="mx-auto w-[90%] shrink-0 lg:max-w-[1440px]">
+      <div className="mx-auto w-[90%] shrink-0 pb-4 md:pb-6 lg:max-w-[1440px] lg:pb-12">
         {/* Oversized headline — SVG so it always fits on one line and fills the width */}
         <motion.div variants={bodyAnimation} className="w-full">
           <svg
@@ -98,7 +98,7 @@ const Hero = () => {
         {/* Intro row: two paragraph columns + CTA */}
         <motion.div
           variants={bodyAnimation}
-          className="mt-2 flex flex-col gap-4 md:mt-3 md:flex-row md:items-start md:justify-between"
+          className="mt-2 flex flex-col gap-4 md:mt-4 md:flex-row md:items-start md:justify-between lg:mt-6"
         >
           <div className="grid max-w-[900px] grid-cols-1 gap-x-10 gap-y-3 lg:grid-cols-2">
             <p className="text-[13.5px] leading-snug text-[#e4ded7]/80 sm:text-[14px] md:text-[15px]">
@@ -169,19 +169,15 @@ const Hero = () => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.25, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute left-[3%] top-[2%] flex h-[94px] w-[94px] rotate-[3deg] flex-col items-center justify-center rounded-full bg-[#79D0C9] text-center text-[#0E1016] shadow-2xl sm:left-[5%] sm:top-[3%] sm:h-[124px] sm:w-[124px] md:h-[152px] md:w-[152px]`}
+            className={`absolute font-semibold left-[3%] top-[2%] flex h-[94px] w-[94px] rotate-[3deg] flex-col items-center justify-center rounded-full bg-[#79D0C9] text-center text-[#0E1016] sm:left-[5%] sm:top-[3%] sm:h-[124px] sm:w-[124px] md:h-[152px] md:w-[152px]`}
           >
-            <span className="mb-1 flex gap-1">
-              <span className="block h-2 w-2 rounded-full bg-[#0E1016] sm:h-2.5 sm:w-2.5" />
-              <span className="block h-2 w-2 rounded-full bg-[#0E1016] sm:h-2.5 sm:w-2.5" />
-            </span>
-            <span className="text-[13px] font-black uppercase leading-[0.92] sm:text-[16px] md:text-[19px]">
-              Swift
+            <span className="text-[13px] font-semibold leading-[0.92] sm:text-[16px] md:text-[19px]">
+              Swift,
               <br />
-              SwiftUI
+              Swiftui
             </span>
-            <span className="mt-1 max-w-[82%] text-[6px] font-bold uppercase leading-tight tracking-wide sm:text-[7px] md:text-[8px]">
-              UIKit • Combine • StoreKit
+            <span className="mt-1 max-w-[82%] text-[6px] font-bold leading-tight tracking-wide sm:text-[7px] md:text-[8px]">
+              Uikit, Combine, Storekit
             </span>
           </motion.div>
 
@@ -190,15 +186,15 @@ const Hero = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.3, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute left-[1%] top-[42%] hidden -rotate-[9deg] items-center gap-1.5 rounded-md bg-[#F4D03F] px-2.5 py-1.5 text-[#0E1016] shadow-2xl sm:gap-2 sm:px-3.5 sm:py-2 lg:left-[2%] lg:flex`}
+            className={`absolute font-semibold left-[1%] top-[42%] hidden -rotate-[9deg] items-center gap-1.5 rounded-md bg-[#F4D03F] px-2.5 py-1.5 text-[#0E1016] sm:gap-2 sm:px-3.5 sm:py-2 lg:left-[2%] lg:flex`}
           >
-            <span className="text-[12px] font-black uppercase leading-none sm:text-[15px] md:text-[18px]">
-              Front—End
+            <span className="text-[12px] font-semibold leading-none sm:text-[15px] md:text-[18px]">
+              Front—end,
             </span>
-            <span className="rounded-[5px] bg-[#0E1016] px-1.5 py-1 text-[10px] font-black uppercase leading-none text-[#F4D03F] sm:text-[12px] md:text-[14px]">
-              TS
+            <span className="rounded-[5px] bg-[#0E1016] px-1.5 py-1 text-[10px] font-semibold leading-none text-[#F4D03F] sm:text-[12px] md:text-[14px]">
+              Ts,
             </span>
-            <span className="text-[12px] font-black uppercase leading-none sm:text-[15px] md:text-[18px]">
+            <span className="text-[12px] font-semibold leading-none sm:text-[15px] md:text-[18px]">
               React
             </span>
           </motion.div>
@@ -208,12 +204,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.35, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute bottom-[12%] left-[5%] flex max-w-[180px] -rotate-[9deg] items-center gap-2 rounded-lg bg-[#E07B26] px-3 py-2 text-[#0E1016] shadow-2xl sm:left-[7%] sm:max-w-[220px] sm:px-4 sm:py-2.5`}
+            className={`absolute font-semibold bottom-[12%] left-[5%] flex max-w-[180px] -rotate-[9deg] items-center gap-2 rounded-lg bg-[#E07B26] px-3 py-2 text-[#0E1016] sm:left-[7%] sm:max-w-[220px] sm:px-4 sm:py-2.5`}
           >
-            <span className="text-[13px] font-black uppercase leading-[0.95] sm:text-[16px] md:text-[19px]">
-              Python • FastAPI
+            <span className="text-[13px] font-semibold leading-[0.95] sm:text-[16px] md:text-[19px]">
+              Python, Fastapi
               <br />
-              REST • OpenAI
+              Rest, Openai
             </span>
             <FontAwesomeIcon
               icon={faArrowRight}
@@ -226,15 +222,14 @@ const Hero = () => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.4, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute right-[7%] top-[4%] w-max max-w-[160px] -rotate-[5deg] rounded-lg bg-[#EC5A8E] px-2.5 py-1.5 text-center text-[#f7eee9] shadow-2xl sm:right-[8%] sm:max-w-[210px] sm:px-3.5 sm:py-2.5 lg:right-[27%] lg:top-[11%] lg:max-w-[250px] lg:px-5 lg:py-3`}
+            className={`absolute font-semibold right-[7%] top-[4%] w-max max-w-[160px] -rotate-[5deg] rounded-lg bg-[#EC5A8E] px-2.5 py-1.5 text-center text-[#f7eee9] sm:right-[8%] sm:max-w-[210px] sm:px-3.5 sm:py-2.5 lg:right-[27%] lg:top-[11%] lg:max-w-[250px] lg:px-5 lg:py-3`}
           >
-            <span className="text-[11px] font-black uppercase leading-[0.95] sm:text-[14px] lg:text-[24px]">
-              AR &amp;
+            <span className="text-[11px] font-semibold leading-[0.95] sm:text-[14px] lg:text-[24px]">
+              Ar &amp;
               <br />
               Spatial
               <br />
               Computing
-              <sup className="text-[9px] sm:text-[12px]">©</sup>
             </span>
           </motion.div>
 
@@ -243,12 +238,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.45, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute right-[1%] top-[34%] hidden rotate-[12deg] items-start gap-1.5 rounded-md bg-[#5FCFD6] px-3 py-2 text-[#0E1016] shadow-2xl sm:px-4 sm:py-2.5 lg:right-[4%] lg:flex`}
+            className={`absolute font-semibold right-[1%] top-[34%] hidden rotate-[12deg] items-start gap-1.5 rounded-md bg-[#5FCFD6] px-3 py-2 text-[#0E1016] sm:px-4 sm:py-2.5 lg:right-[4%] lg:flex`}
           >
-            <span className="text-[13px] font-black uppercase leading-[0.95] sm:text-[16px] md:text-[19px]">
+            <span className="text-[13px] font-semibold leading-[0.95] sm:text-[16px] md:text-[19px]">
               Cloud &amp; Data
               <br />
-              <span className="text-[10px] sm:text-[12px]">AWS • Firebase</span>
+              <span className="text-[10px] sm:text-[12px]">Aws, Firebase</span>
             </span>
             <FontAwesomeIcon icon={faAsterisk} className="text-[10px] sm:text-[12px]" />
           </motion.div>
@@ -270,15 +265,14 @@ const Hero = () => {
               </defs>
               <circle cx="50" cy="50" r="50" fill="#A4D94B" />
               <text
-                className={monaSans.className}
                 fill="#0E1016"
                 fontSize="9.8"
-                fontWeight="900"
+                fontWeight="600"
                 letterSpacing="1.1"
-                style={{ textTransform: "uppercase" }}
+                style={{ fontWeight: 600 }}
               >
                 <textPath href="#cleanCodePath" startOffset="0">
-                  {"MVVM • CLEAN ARCH • SOLID • DI • "}
+                  {"Mvvm, Clean, Arch, Solid, Di "}
                 </textPath>
               </text>
             </svg>
@@ -292,10 +286,10 @@ const Hero = () => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.55, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute left-[4%] top-[58%] hidden -rotate-[4deg] flex-col items-start rounded-lg bg-[#9D8CF0] px-4 py-2.5 text-[#0E1016] shadow-2xl lg:flex`}
+            className={`absolute font-semibold left-[4%] top-[58%] hidden -rotate-[4deg] flex-col items-start rounded-lg bg-[#9D8CF0] px-4 py-2.5 text-[#0E1016] lg:flex`}
           >
-            <span className="text-[20px] font-black uppercase leading-[0.92]">
-              UI / UX
+            <span className="text-[20px] font-semibold leading-[0.92]">
+              Ui / Ux,
               <br />
               Design
             </span>
@@ -306,10 +300,10 @@ const Hero = () => {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.6, duration: 0.4, ease: "easeOut" }}
-            className={`${monaSans.className} absolute right-[5%] top-[58%] hidden rotate-[7deg] items-center gap-1.5 rounded-md bg-[#9D8CF0] px-4 py-2.5 text-[#0E1016] shadow-2xl lg:flex`}
+            className={`absolute font-semibold right-[5%] top-[58%] hidden rotate-[7deg] items-center gap-1.5 rounded-md bg-[#9D8CF0] px-4 py-2.5 text-[#0E1016] lg:flex`}
           >
-            <span className="text-[16px] font-black uppercase leading-[0.95] md:text-[18px]">
-              Figma • Framer
+            <span className="text-[16px] font-semibold leading-[0.95] md:text-[18px]">
+              Figma, Framer,
               <br />
               Prototyping
             </span>

@@ -3,8 +3,6 @@ import alex from "../../public/14.jpeg";
 import jerry from "../../public/13.jpeg";
 import mauro from "../../public/12.jpeg";
 import alan from "../../public/alan.jpeg";
-import olamide from "../../public/olamide.jpeg";
-import umar from "../../public/umar.jpeg";
 
 export type reviewProps = {
   name: string;

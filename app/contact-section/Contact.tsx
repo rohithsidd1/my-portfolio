@@ -6,7 +6,6 @@ import AnimatedBody from "../animations/AnimatedBody";
 import AnimatedTitle from "../animations/AnimatedTitle";
 import AnimatedWords2 from "../animations/AnimatedWords2";
 import { motion } from "framer-motion";
-import heartIcon from "../../public/heart icon.png";
 import githubIcon from "../../public/github-icon.png"; // Update the path as needed
 import linkedinIcon from "../../public/linkedin-icon.png"; // Update the path as needed
 import upworkIcon from "../../public/upwork-icon.png"; // Update the path as needed
