@@ -18,19 +18,29 @@ const NavBar = () => {
     });
   };
 
-  // Auto-hide on scroll down so the bar never covers card actions on mobile
+  // Auto-hide on scroll down so the bar never covers card actions on mobile.
+  // Glitch-proof: state flips only on real transitions, with hysteresis so
+  // touch inertia/bounce around the threshold can't make it flicker.
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
     let lastY = window.scrollY;
+    let isHidden = false;
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
         const y = window.scrollY;
-        setHidden(y > 200 && y > lastY + 4);
+        const dy = y - lastY;
         lastY = y;
         ticking = false;
+        if (!isHidden && y > 250 && dy > 6) {
+          isHidden = true;
+          setHidden(true);
+        } else if (isHidden && (dy < -6 || y <= 250)) {
+          isHidden = false;
+          setHidden(false);
+        }
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -39,8 +49,8 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`fixed bottom-5 left-0 right-0 z-50 my-0 mx-auto flex w-[306px] items-center justify-center gap-1 rounded-lg bg-[#07070a]/90 px-1 py-1 text-[#e4ded7] backdrop-blur-md transition-transform duration-300 sm:w-[383.3px] md:bottom-10 md:p-2 lg:w-[391.3px] ${
-        hidden ? "pointer-events-none translate-y-[200%] opacity-0" : ""
+      className={`fixed bottom-5 left-0 right-0 z-50 my-0 mx-auto flex w-[306px] items-center justify-center gap-1 rounded-lg bg-[#07070a]/90 px-1 py-1 text-[#e4ded7] backdrop-blur-md transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform sm:w-[383.3px] md:bottom-10 md:p-2 lg:w-[391.3px] ${
+        hidden ? "pointer-events-none translate-y-[250%] opacity-0" : ""
       }`}
     >
       <Link
