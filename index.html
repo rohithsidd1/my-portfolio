@@ -951,7 +951,7 @@ const Sound = (() => {
     toggle() { enabled = !enabled; try { localStorage.setItem('rs-sound', enabled ? 'on' : 'off'); } catch (e) {} if (enabled) start(); else apply(); return enabled; },
     duck(v) { if (ducked === v) return; ducked = v; apply(); },
     get enabled() { return enabled; },
-    state() { return !enabled ? 'off' : !started ? 'waiting' : ducked ? 'ducked' : 'on'; },
+    state() { return !enabled ? 'off' : (started && ducked) ? 'ducked' : (!started || !ctx || ctx.state !== 'running') ? 'waiting' : 'on'; },
     level() { if (!analyser || !started) return 0; analyser.getFloatTimeDomainData(buf); let q = 0; for (let i = 0; i < buf.length; i++) q += buf[i] * buf[i]; return Math.sqrt(q / buf.length); }
   };
 })();
@@ -1581,7 +1581,7 @@ requestAnimationFrame(frame);
 { const l = $('loader'); const minAt = reduced ? 500 : 3400;
   const tryReveal = () => {
     if (frames < 24 || performance.now() < minAt) return setTimeout(tryReveal, 60);   // let the GPU warm up and the line finish
-    finishBar(); setTimeout(() => { revealed = true; l.classList.add('reveal'); setTimeout(() => l.classList.add('gone'), 1500); }, 720);
+    finishBar(); setTimeout(() => { revealed = true; l.classList.add('reveal'); if (!coarse && Sound.enabled) { Sound.start(); syncSoundBtn(); } setTimeout(() => l.classList.add('gone'), 1500); }, 720);
   };
   tryReveal(); }
 window.__ready = true;
