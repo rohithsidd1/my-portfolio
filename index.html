@@ -979,7 +979,7 @@ SKILLS.forEach((s, i) => note({ beat: 'skills', hold: (SK[0] + SK[1]) / 2, win: 
 const EX = MK.experience, exSpan = (EX[1] - EX[0]) / ROLES.length;
 ROLES.forEach((r, i) => { const a = EX[0] + i * exSpan, b = a + exSpan; note({ beat: 'experience', hold: (a + b) / 2, win: [a, b + (i < ROLES.length - 1 ? 0.007 : 0)], winM: [a + (i ? 0.004 : 0), b - (i < ROLES.length - 1 ? 0.004 : 0)], fade: 0.007, snap: 'kbd', anchor: r.a, layout: 'col', side: 'right', cls: 'wide', mobLine: true, num: pad2(i + 1), html: `<div class="box xp"><div class="xp-top"><span class="xp-logo" aria-hidden="true">${r.co[0]}</span><span class="xp-when">${pad2(i + 1)} of ${pad2(ROLES.length)} &nbsp; ${r.when}</span></div><p class="role">${r.role}</p><p class="t">${r.co}</p><div class="chipset">${(ROLE_TAGS[r.co] || []).map(c => `<span>${c}</span>`).join('')}</div><p class="what">${r.what}</p>${statHtml(r.chips)}</div>` }); });
 const GA = MK.games;
-note({ beat: 'games', hold: (GA[0] + GA[1]) / 2, win: [GA[0], GA[1]], anchor: [1.32, 3.6, 3.0], layout: 'off', dx: -190, dy: -90, cls: 'mini', mob: { v: 'up', h: 'l', dy: 64 }, html: '<div class="box"><p class="k">PS5</p><p class="t">Now playing</p></div>' });
+note({ beat: 'games', hold: (GA[0] + GA[1]) / 2, win: [GA[0], GA[1]], anchor: [1.32, 3.6, 3.0], layout: 'off', dx: -190, dy: -90, cls: 'mini', mob: { v: 'down', h: 'r', dy: 205 }, html: '<div class="box"><p class="k">PS5</p><p class="t">Now playing</p></div>' });
 
 /* ================= renderer ================= */
 let shown = 0, revealed = false;
