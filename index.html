@@ -925,7 +925,22 @@ const Sound = (() => {
   }
   function unlock() { try { const b = ctx.createBuffer(1, 1, 22050), src = ctx.createBufferSource(); src.buffer = b; src.connect(ctx.destination); src.start(0); } catch (e) {} if (ctx.state !== 'running') ctx.resume().then(apply).catch(() => {}); }
   function start() { if (!ctx) init(); unlock(); if (!started) { started = true; nextT = ctx.currentTime + 0.12; schedule(); timer = setInterval(schedule, 200); } apply(); }
-  document.addEventListener('visibilitychange', apply);
+  // leaving the page (app switcher, closing the browser, locking the phone): cut the sound within a few
+  // milliseconds and stop the audio engine at once, so the OS never freezes it mid-note (that is the harsh buzz)
+  function hardStop() {
+    if (!ctx) return;
+    clearTimeout(susT);
+    try { const now = ctx.currentTime, g = master.gain; g.cancelScheduledValues(now); g.setValueAtTime(g.value, now); g.linearRampToValueAtTime(0, now + 0.012); } catch (e) {}
+    if (ctx.state === 'running') ctx.suspend().catch(() => {});
+  }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hardStop(); else apply(); });
+  addEventListener('blur', () => { if (document.hidden) hardStop(); });
+  document.addEventListener('freeze', hardStop);
+  addEventListener('pagehide', e => {
+    hardStop();
+    if (!e.persisted && ctx) { clearInterval(timer); try { ctx.close(); } catch (er) {} ctx = null; started = false; }   // truly leaving: release the audio hardware
+  });
+  addEventListener('pageshow', e => { if (e.persisted && ctx) apply(); });
   return {
     start, apply, running: () => !!ctx && ctx.state === 'running',
     toggle() { enabled = !enabled; try { localStorage.setItem('rs-sound', enabled ? 'on' : 'off'); } catch (e) {} if (enabled) start(); else apply(); return enabled; },
