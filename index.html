@@ -72,7 +72,7 @@
   button { font: inherit; color: inherit; }
   :focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; border-radius: 8px; }
 
-  #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+  #scene { position: fixed; inset: 0; bottom: auto; width: 100%; height: 100vh; height: 100lvh; display: block; z-index: 0; }
   .scrim { position: fixed; left: 0; right: 0; bottom: 0; height: 48vh; z-index: 1; pointer-events: none; background: linear-gradient(to top, rgba(4,6,12,0.72), rgba(4,6,12,0)); }
 
   /* minimal loader: one word at a time, a hairline that fills, nothing else. GPU-only animation so it never stutters */
@@ -215,7 +215,7 @@
   .hobby { margin: 0; font-size: 13px; color: var(--ice-3); }
 
   /* annotations */
-  #notes { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+  #notes { position: fixed; inset: 0; bottom: auto; height: 100vh; height: 100lvh; z-index: 2; pointer-events: none; }
   #lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
   #lines path { fill: none; stroke: rgba(233,240,253,0.78); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
   #lines circle { fill: var(--ice); }
@@ -532,6 +532,26 @@
   @media (max-width: 400px) { .mark .last { display: none; } }
   @media (prefers-reduced-motion: reduce) { .roll .rt > span { transition: none; } .roll:hover .rt > span, .roll.tick .rt > span { transform: none; } }
 </style>
+<style id="phone-spacing">
+  @media (max-width: 760px) {
+    .overview, .timeline, .final, .games { bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+    .hero { bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+    .pcap { bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+    /* role card: the company name reads as the title again */
+    .note.col .box.xp .t { font: 600 22px/1.1 var(--text); letter-spacing: -0.03em; margin: 0 0 10px; }
+    .note.col .box.xp .role { font-size: 12px; margin: 0 0 4px; }
+    /* overview footer and stat labels: one tidy line each where possible */
+    .ov-foot p { font-size: 12.5px; } .ov-stats small { font-size: 10.5px; line-height: 1.3; }
+  }
+  /* short phones (iPhone SE and similar): a compact overview card so the desk keeps its room */
+  @media (max-width: 760px) and (max-height: 720px) {
+    .overview .card.ov { padding: 14px; }
+    .ov-top { margin-bottom: 10px; } .ov-mark { width: 32px; height: 32px; font-size: 12px; }
+    .ov-title { font-size: 18px; margin-bottom: 10px; }
+    .ov-stats { margin-bottom: 0; } .ov-stats div { padding: 9px 9px 8px; } .ov-stats b { font-size: 18px; } .ov-stats small { margin-top: 5px; }
+    .ov-foot { display: none; }
+  }
+</style>
 </head>
 <body>
 <noscript><div style="position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#04060c;color:#e9f0fd;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:24px"><div><p style="font-size:28px;margin:0 0 8px">Rohith Siddanathi</p><p style="margin:0 0 16px;opacity:.7">Full-stack developer and designer. This portfolio needs JavaScript to draw its 3D scene.</p><p><a style="color:#e9f0fd" href="mailto:rohithsiddanathi.ios@gmail.com">Email</a> &nbsp; <a style="color:#e9f0fd" href="https://www.linkedin.com/in/rohith-siddanathi/">LinkedIn</a> &nbsp; <a style="color:#e9f0fd" href="https://github.com/rohithsidd1">GitHub</a> &nbsp; <a style="color:#e9f0fd" href="https://www.behance.net/rohithsiddanathi">Behance</a></p></div></div></noscript>
@@ -546,6 +566,8 @@
 </div>
 
 
+<div id="svh" aria-hidden="true" style="position:fixed;left:0;top:0;width:0;height:100vh;height:100svh;pointer-events:none;visibility:hidden"></div>
+<div id="sab" aria-hidden="true" style="position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);pointer-events:none;visibility:hidden"></div>
 <canvas id="scene" role="img" aria-label="A desk setup on a floating ice platform among the crystal fragments of a shattered planet"></canvas>
 <div class="scrim" aria-hidden="true"></div>
 <div id="notes"><svg id="lines" aria-hidden="true"></svg></div>
@@ -670,7 +692,13 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 const $ = id => document.getElementById(id);
-const VW = () => document.documentElement.clientWidth || innerWidth, VH = () => document.documentElement.clientHeight || innerHeight;
+const sceneEl = document.getElementById('scene');
+let _vw = 0, _vh = 0;
+const measureBox = () => { _vw = sceneEl.clientWidth || document.documentElement.clientWidth || innerWidth; _vh = sceneEl.clientHeight || document.documentElement.clientHeight || innerHeight; };
+measureBox();
+const VW = () => _vw, VH = () => _vh;
+const SVH = () => { const e = document.getElementById('svh'); return Math.min(e && e.offsetHeight ? e.offsetHeight : innerHeight, VH()); };
+const SAB = () => { const e = document.getElementById('sab'); return e ? e.offsetHeight : 0; };   // the phone's home-indicator inset
 const params = new URLSearchParams(location.search);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || params.has('still');
 const coarse = matchMedia('(hover: none), (pointer: coarse)').matches;
@@ -1330,8 +1358,10 @@ if (!coarse && !reduced) addEventListener('pointermove', e => { ptr.tx = e.clien
 document.documentElement.addEventListener('pointerleave', () => { ptr.tx = 0; ptr.ty = 0; });
 
 let laidOut = false, progH = 300, uiDirty = true;
+let lastW = 0, lastH = 0;
 function resize() {
-  const w = VW(), h = VH();
+  measureBox(); const w = VW(), h = VH();
+  if (w === lastW && h === lastH) return; lastW = w; lastH = h;
   renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); composer.setPixelRatio(dpr); composer.setSize(w, h);
   bloom.resolution.set(w * dpr * 0.5, h * dpr * 0.5); finish.uniforms.uRes.value.set(w * dpr, h * dpr);
   camera.aspect = w / h; camera.updateProjectionMatrix(); helper.aspect = w / h;
@@ -1340,6 +1370,8 @@ function resize() {
   buildKeys(); laidOut = false; progH = progressEl.clientHeight || 300; uiDirty = true;
 }
 addEventListener('resize', resize); resize();
+// phones resize the visible area as the browser bars slide away; follow the canvas itself so nothing drifts
+if (window.ResizeObserver) { let rq = 0; new ResizeObserver(() => { cancelAnimationFrame(rq); rq = requestAnimationFrame(() => { const w = _vw, h = _vh; measureBox(); if (_vw !== w || _vh !== h) resize(); }); }).observe(sceneEl); }
 if (params.has('t')) { const y = clamp(+params.get('t'), 0, 1) * limit(); scrollTo(0, y); if (lenis) lenis.scrollTo(y, { immediate: true }); cur = clamp(+params.get('t'), 0, 1); }
 
 /* ================= annotation layout (once per section, from its resting camera) ================= */
@@ -1356,19 +1388,19 @@ function layoutNotes() {
     const cols = { left: [], right: [] };
     list.forEach(n => {
       if (nar && n.mob) {   // phones: labels sit in the corners around the desk, clear of the card
-        const card = document.querySelector('.overview .card'), floor = card ? card.getBoundingClientRect().top - 16 : H - padX, ceil = 96;
+        const card = document.querySelector('.overview .card'), floor = card ? card.getBoundingClientRect().top - Math.max(0, innerHeight - SVH()) - 16 : H - padX, ceil = 96;
         const gx = 18; let side = n.mob.h;
         const place = sd => clamp(sd === 'r' ? n.hx + gx : n.hx - gx - n.w, padX, W - padX - n.w);
         n.lx = place(side); if (n.lx <= n.hx + 6 && n.lx + n.w >= n.hx - 6) { side = side === 'r' ? 'l' : 'r'; n.lx = place(side); }   // never let a label sit on its own leader
         n.mside = side; n.el.classList.toggle('to-l', side === 'l');
-        n.ly = clamp((n.mob.v === 'up' ? n.hy - n.mob.dy : n.hy + n.mob.dy) - n.tc, ceil, floor - n.h); }
+        const dyS = n.mob.dy * clamp(H / 880, 0.68, 1); n.ly = clamp((n.mob.v === 'up' ? n.hy - dyS : n.hy + dyS) - n.tc, ceil, floor - n.h); }
       else if (n.layout === 'off') { n.lx = clamp(n.hx + n.dx - (n.dx < 0 ? n.w : 0), padX, W - padX - n.w); n.ly = clamp(n.hy + n.dy - n.h / 2, 72, H - n.h - padX); }
       else cols[nar ? 'right' : n.side].push(n);
     });
     for (const side of ['left', 'right']) {
       const c = cols[side].sort((a, b) => a.hy - b.hy); if (!c.length) continue;
       const total = c.reduce((s, n) => s + n.h, 0);
-      if (nar) { c.sort((a, b) => NOTES.indexOf(a) - NOTES.indexOf(b)); if (c[0].beat === 'skills') { c.forEach(n => { n.lx = 0; n.ly = Math.min(H - 52 - n.h, H * 0.6); }); continue; } let y = Math.max(H * 0.4, H - 40 - total - 10 * (c.length - 1)); c.forEach(n => { n.lx = 0; n.ly = y; y += n.h + 10; }); continue; }
+      if (nar) { c.sort((a, b) => NOTES.indexOf(a) - NOTES.indexOf(b)); const bot = SVH() - 16 - SAB(); if (c[0].beat === 'skills') { c.forEach(n => { n.lx = 0; n.ly = Math.min(bot - n.h, H * 0.6); }); continue; } let y = Math.max(H * 0.4, bot - total - 10 * (c.length - 1)); c.forEach(n => { n.lx = 0; n.ly = y; y += n.h + 10; }); continue; }
       // left column starts under the section heading, right column under the top bar
       const head = document.querySelector(`.sectionhead[data-beat="${c[0].beat}"]`);
       const headBottom = head ? head.offsetTop + head.offsetHeight + 22 : H * 0.18;
@@ -1377,7 +1409,8 @@ function layoutNotes() {
       let y = c.length === 1 ? clamp(c[0].hy - c[0].h / 2, top, bottom - c[0].h) : Math.max(top, Math.min((top + bottom - total - gap * (c.length - 1)) / 2, bottom - total - gap * (c.length - 1)));
       c.forEach(n => { n.lx = side === 'left' ? padX : W - padX - n.w - 128; n.ly = y; y += n.h + gap; });
     }
-    list.forEach(n => { n.vert = nar && n.mobLine; if (n.vert) { n.ex = n.hx; n.ey = n.ly - 8; n.end.setAttribute('cx', n.ex.toFixed(1)); n.end.setAttribute('cy', n.ey.toFixed(1)); n.el.style.transform = `translate3d(${n.lx.toFixed(1)}px, ${n.ly.toFixed(1)}px, 0)`; return; } n.dir = n.lx + n.w / 2 > n.hx ? 1 : -1; const isCard = n.cls === 'wide', gap = isCard ? 0 : 10; n.ex = n.dir > 0 ? n.lx - gap : n.lx + n.w + gap; n.ey = n.ly + (isCard ? n.h / 2 : n.tc); n.end.setAttribute('cx', n.ex.toFixed(1)); n.end.setAttribute('cy', n.ey.toFixed(1)); n.el.style.transform = `translate3d(${n.lx.toFixed(1)}px, ${n.ly.toFixed(1)}px, 0)`; n.cache = ''; });
+    const anchorOf = (n, sel) => { const tg = n.el.querySelector(sel); if (!tg) return null; let x = tg.offsetWidth / 2, y = 0, e = tg; while (e && e !== n.el) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; } return [n.el.offsetLeft + n.lx + x, n.el.offsetTop + n.ly + y]; };
+    list.forEach(n => { n.vert = nar && n.mobLine; if (n.vert) { n.el.style.transform = `translate3d(${n.lx.toFixed(1)}px, ${n.ly.toFixed(1)}px, 0)`; const at = anchorOf(n, n.beat === 'skills' ? '.sk-ico' : '.xp-logo'); n.tx = at ? at[0] : n.lx + 37; n.ty = at ? at[1] : n.ly; n.ex = n.hx; n.ey = n.ly - 8; n.end.setAttribute('cx', n.ex.toFixed(1)); n.end.setAttribute('cy', n.ey.toFixed(1)); n.el.style.transform = `translate3d(${n.lx.toFixed(1)}px, ${n.ly.toFixed(1)}px, 0)`; return; } n.dir = n.lx + n.w / 2 > n.hx ? 1 : -1; const isCard = n.cls === 'wide', gap = isCard ? 0 : 10; n.ex = n.dir > 0 ? n.lx - gap : n.lx + n.w + gap; n.ey = n.ly + (isCard ? n.h / 2 : n.tc); n.end.setAttribute('cx', n.ex.toFixed(1)); n.end.setAttribute('cy', n.ey.toFixed(1)); n.el.style.transform = `translate3d(${n.lx.toFixed(1)}px, ${n.ly.toFixed(1)}px, 0)`; n.cache = ''; });
   }
   laidOut = true;
 }
@@ -1398,7 +1431,7 @@ function notesUI(t) {
       n.path.setAttribute('d', `M${sx.toFixed(1)},${sy.toFixed(1)} L${sx.toFixed(1)},${cy.toFixed(1)} L${ex.toFixed(1)},${cy.toFixed(1)}`); n.end.setAttribute('cx', ex.toFixed(1)); n.end.setAttribute('cy', cy.toFixed(1));
       n.path.style.strokeDashoffset = (1 - lineV).toFixed(3); n.path.style.opacity = ok ? '1' : '0'; n.end.style.opacity = ok && lineV >= 0.98 ? '1' : '0'; continue; }
     if (n.vert) {   // phones: a straight drop from the key to the card below it
-      const ey = n.ly - (n.beat === 'skills' ? 3 : 0), tx = n.lx + (typeof n.mobLine === 'number' ? n.mobLine : 37), my = sy + (ey - sy) * 0.55;   // lands on the card edge, right above its logo circle
+      const ey = n.ty - 3, tx = n.tx, my = sy + (ey - sy) * 0.55;   // lands on the card edge, right above its logo circle
       n.path.setAttribute('d', `M${sx.toFixed(1)},${sy.toFixed(1)} C${sx.toFixed(1)},${my.toFixed(1)} ${tx.toFixed(1)},${(my - 10).toFixed(1)} ${tx.toFixed(1)},${ey.toFixed(1)}`); n.end.setAttribute('cx', tx.toFixed(1)); n.end.setAttribute('cy', ey.toFixed(1));
       n.path.style.strokeDashoffset = (1 - lineV).toFixed(3); n.path.style.opacity = ok && ey > sy + 16 ? '1' : '0'; n.end.style.opacity = ok && lineV >= 0.98 && ey > sy + 16 ? '1' : '0'; continue; }
     const elbow = n.ex - n.dir * 30;   // fixed-length stub, so the line keeps its shape
