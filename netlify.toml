@@ -1,0 +1,13 @@
+# Plain static site: there is nothing to build. These settings override the old
+# Next.js build command, publish folder and runtime still saved in the Netlify dashboard.
+[build]
+  base = ""
+  publish = "."
+  command = "echo 'Static site, no build step'"
+
+[build.environment]
+  # the Next.js runtime plugin was installed for the old site; skip it
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+[build.processing]
+  skip_processing = true
