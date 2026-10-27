@@ -552,6 +552,13 @@
     .ov-foot { display: none; }
   }
 </style>
+<style id="phone-compositing">
+  @media (max-width: 760px) {
+    /* fixed layers get their own GPU layer, so bars sliding in and out don't repaint them */
+    #scene, #notes, header, .beat { will-change: transform; transform: translateZ(0); }
+    html { overscroll-behavior-y: none; }
+  }
+</style>
 </head>
 <body>
 <noscript><div style="position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#04060c;color:#e9f0fd;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:24px"><div><p style="font-size:28px;margin:0 0 8px">Rohith Siddanathi</p><p style="margin:0 0 16px;opacity:.7">Full-stack developer and designer. This portfolio needs JavaScript to draw its 3D scene.</p><p><a style="color:#e9f0fd" href="mailto:rohithsiddanathi.ios@gmail.com">Email</a> &nbsp; <a style="color:#e9f0fd" href="https://www.linkedin.com/in/rohith-siddanathi/">LinkedIn</a> &nbsp; <a style="color:#e9f0fd" href="https://github.com/rohithsidd1">GitHub</a> &nbsp; <a style="color:#e9f0fd" href="https://www.behance.net/rohithsiddanathi">Behance</a></p></div></div></noscript>
@@ -916,10 +923,11 @@ const Sound = (() => {
     g.cancelScheduledValues(now); g.setValueAtTime(g.value, now); g.linearRampToValueAtTime(on ? 0.38 : 0, now + (on ? 2.4 : 1.0));
     if (!on) susT = setTimeout(() => { if (!(enabled && !ducked && !document.hidden)) ctx.suspend(); }, 1400);
   }
-  function start() { if (!ctx) init(); if (!started) { started = true; ctx.resume(); nextT = ctx.currentTime + 0.12; schedule(); timer = setInterval(schedule, 200); } apply(); }
+  function unlock() { try { const b = ctx.createBuffer(1, 1, 22050), src = ctx.createBufferSource(); src.buffer = b; src.connect(ctx.destination); src.start(0); } catch (e) {} if (ctx.state !== 'running') ctx.resume().then(apply).catch(() => {}); }
+  function start() { if (!ctx) init(); unlock(); if (!started) { started = true; nextT = ctx.currentTime + 0.12; schedule(); timer = setInterval(schedule, 200); } apply(); }
   document.addEventListener('visibilitychange', apply);
   return {
-    start, apply,
+    start, apply, running: () => !!ctx && ctx.state === 'running',
     toggle() { enabled = !enabled; try { localStorage.setItem('rs-sound', enabled ? 'on' : 'off'); } catch (e) {} if (enabled) start(); else apply(); return enabled; },
     duck(v) { if (ducked === v) return; ducked = v; apply(); },
     get enabled() { return enabled; },
@@ -931,8 +939,10 @@ const soundBtn = $('soundBtn');
 function syncSoundBtn() { const st = Sound.state(); soundBtn.setAttribute('aria-pressed', st === 'off' ? 'false' : 'true'); const label = st === 'off' ? 'Background sound off' : st === 'ducked' ? 'Background sound paused while Spotify plays' : 'Background sound on'; soundBtn.setAttribute('aria-label', label); soundBtn.title = label; soundBtn.classList.toggle('hint', st === 'waiting' && hintReady); }
 let hintReady = false; setTimeout(() => { hintReady = true; syncSoundBtn(); }, 2600);
 soundBtn.addEventListener('click', () => { Sound.toggle(); syncSoundBtn(); });
-const firstGesture = e => { if (soundBtn.contains(e.target)) return; ['pointerdown', 'keydown', 'touchstart'].forEach(ev => removeEventListener(ev, firstGesture, true)); if (Sound.enabled) { Sound.start(); syncSoundBtn(); } };
-['pointerdown', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, firstGesture, { capture: true, passive: true }));
+const UNLOCK = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
+const firstGesture = e => { if (soundBtn.contains(e.target) || !Sound.enabled) return; Sound.start(); syncSoundBtn();
+  setTimeout(() => { if (Sound.running()) { UNLOCK.forEach(ev => removeEventListener(ev, firstGesture, true)); syncSoundBtn(); } }, 120); };
+UNLOCK.forEach(ev => addEventListener(ev, firstGesture, { capture: true, passive: true }));
 // the icon is a live waveform: it moves with the music and settles into a flat line when sound is off
 { const cv = $('soundWave'), g = cv.getContext('2d'); let amp = 0, ph = 0, last = performance.now(), lastSt = '';
   const line = (a, off, alpha, w) => { g.beginPath(); for (let x = 2; x <= 54; x++) { const u = (x - 2) / 52, env = Math.sin(Math.PI * u); const y = 16 + Math.sin(u * Math.PI * 4 + ph + off) * a * 11 * env; x === 2 ? g.moveTo(x, y) : g.lineTo(x, y); } g.strokeStyle = `rgba(233,240,253,${alpha})`; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round'; g.stroke(); };
@@ -969,7 +979,7 @@ SKILLS.forEach((s, i) => note({ beat: 'skills', hold: (SK[0] + SK[1]) / 2, win: 
 const EX = MK.experience, exSpan = (EX[1] - EX[0]) / ROLES.length;
 ROLES.forEach((r, i) => { const a = EX[0] + i * exSpan, b = a + exSpan; note({ beat: 'experience', hold: (a + b) / 2, win: [a, b + (i < ROLES.length - 1 ? 0.007 : 0)], winM: [a + (i ? 0.004 : 0), b - (i < ROLES.length - 1 ? 0.004 : 0)], fade: 0.007, snap: 'kbd', anchor: r.a, layout: 'col', side: 'right', cls: 'wide', mobLine: true, num: pad2(i + 1), html: `<div class="box xp"><div class="xp-top"><span class="xp-logo" aria-hidden="true">${r.co[0]}</span><span class="xp-when">${pad2(i + 1)} of ${pad2(ROLES.length)} &nbsp; ${r.when}</span></div><p class="role">${r.role}</p><p class="t">${r.co}</p><div class="chipset">${(ROLE_TAGS[r.co] || []).map(c => `<span>${c}</span>`).join('')}</div><p class="what">${r.what}</p>${statHtml(r.chips)}</div>` }); });
 const GA = MK.games;
-note({ beat: 'games', hold: (GA[0] + GA[1]) / 2, win: [GA[0], GA[1]], anchor: [1.32, 3.6, 3.0], layout: 'off', dx: -190, dy: -90, cls: 'mini', html: '<div class="box"><p class="k">PS5</p><p class="t">Now playing</p></div>' });
+note({ beat: 'games', hold: (GA[0] + GA[1]) / 2, win: [GA[0], GA[1]], anchor: [1.32, 3.6, 3.0], layout: 'off', dx: -190, dy: -90, cls: 'mini', mob: { v: 'up', h: 'l', dy: 64 }, html: '<div class="box"><p class="k">PS5</p><p class="t">Now playing</p></div>' });
 
 /* ================= renderer ================= */
 let shown = 0, revealed = false;
@@ -1347,7 +1357,7 @@ const pose = { p: new THREE.Vector3(), l: new THREE.Vector3(), fov: 40, sh: 70 }
 const lpose = { p: new THREE.Vector3(), l: new THREE.Vector3(), fov: 40, sh: 70 };
 
 /* ================= scrolling ================= */
-const lenis = (!reduced && window.Lenis) ? new window.Lenis({ lerp: 0.085, wheelMultiplier: 0.95, touchMultiplier: 1.4, smoothWheel: true, syncTouch: false, autoRaf: false }) : null;
+const lenis = (!reduced && !coarse && window.Lenis) ? new window.Lenis({ lerp: 0.085, wheelMultiplier: 0.95, touchMultiplier: 1.4, smoothWheel: true, syncTouch: false, autoRaf: false }) : null;
 const limit = () => Math.max(1, document.documentElement.scrollHeight - VH());
 let cur = 0;
 const scrollTarget = () => clamp((lenis ? lenis.animatedScroll : scrollY) / limit(), 0, 1);
@@ -1388,7 +1398,8 @@ function layoutNotes() {
     const cols = { left: [], right: [] };
     list.forEach(n => {
       if (nar && n.mob) {   // phones: labels sit in the corners around the desk, clear of the card
-        const card = document.querySelector('.overview .card'), floor = card ? card.getBoundingClientRect().top - Math.max(0, innerHeight - SVH()) - 16 : H - padX, ceil = 96;
+        const card = document.querySelector(n.beat === 'games' ? '.games .tiles' : '.overview .card'), floor = card ? card.getBoundingClientRect().top - Math.max(0, innerHeight - SVH()) - 16 : H - padX;
+        const head = document.querySelector(`.sectionhead[data-beat="${n.beat}"]`), ceil = head ? Math.max(96, head.getBoundingClientRect().bottom + 16) : 96;   // never under a heading
         const gx = 18; let side = n.mob.h;
         const place = sd => clamp(sd === 'r' ? n.hx + gx : n.hx - gx - n.w, padX, W - padX - n.w);
         n.lx = place(side); if (n.lx <= n.hx + 6 && n.lx + n.w >= n.hx - 6) { side = side === 'r' ? 'l' : 'r'; n.lx = place(side); }   // never let a label sit on its own leader
@@ -1400,7 +1411,7 @@ function layoutNotes() {
     for (const side of ['left', 'right']) {
       const c = cols[side].sort((a, b) => a.hy - b.hy); if (!c.length) continue;
       const total = c.reduce((s, n) => s + n.h, 0);
-      if (nar) { c.sort((a, b) => NOTES.indexOf(a) - NOTES.indexOf(b)); const bot = SVH() - 16 - SAB(); if (c[0].beat === 'skills') { c.forEach(n => { n.lx = 0; n.ly = Math.min(bot - n.h, H * 0.6); }); continue; } let y = Math.max(H * 0.4, bot - total - 10 * (c.length - 1)); c.forEach(n => { n.lx = 0; n.ly = y; y += n.h + 10; }); continue; }
+      if (nar) { c.sort((a, b) => NOTES.indexOf(a) - NOTES.indexOf(b)); const bot = SVH() - 16 - SAB(); if (c[0].beat === 'skills') { c.forEach(n => { n.lx = 0; n.ly = bot - n.h; }); continue; } let y = Math.max(H * 0.4, bot - total - 10 * (c.length - 1)); c.forEach(n => { n.lx = 0; n.ly = y; y += n.h + 10; }); continue; }
       // left column starts under the section heading, right column under the top bar
       const head = document.querySelector(`.sectionhead[data-beat="${c[0].beat}"]`);
       const headBottom = head ? head.offsetTop + head.offsetHeight + 22 : H * 0.18;
