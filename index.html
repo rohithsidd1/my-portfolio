@@ -6,10 +6,11 @@
 <title>Rohith Siddanathi, full-stack developer and designer</title>
 <meta name="description" content="Rohith Siddanathi, full-stack developer and designer. iOS, web and AI products built end to end, from Figma to the App Store.">
 <meta name="theme-color" content="#04060c">
-<link rel="preload" href="assets/models/outpost_ktx.glb" as="fetch" crossorigin>
-<link rel="preload" href="assets/models/setup_ktx.glb" as="fetch" crossorigin>
+<link rel="modulepreload" href="./assets/vendor/three-bundle.min.js">
+<link rel="preload" href="assets/models/outpost.glb" as="fetch" crossorigin>
+<link rel="preload" href="assets/models/setup.glb" as="fetch" crossorigin>
 <link rel="preload" href="assets/models/ps5.glb" as="fetch" crossorigin>
-<link rel="preload" href="assets/models/dualsense_ktx.glb" as="fetch" crossorigin>
+<link rel="preload" href="assets/models/dualsense.glb" as="fetch" crossorigin>
 <link rel="preload" href="assets/models/headphones.glb" as="fetch" crossorigin>
 <link rel="preload" href="assets/fonts/InstrumentSerif-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Onest-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -32,7 +33,6 @@
 <meta name="twitter:description" content="Rohith Siddanathi, full-stack developer and designer. iOS, web and AI products built end to end, from Figma to the App Store.">
 <meta name="twitter:image" content="https://rohithsiddanathi.netlify.app/og-image.jpg">
 <meta name="author" content="Rohith Siddanathi">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <style>
   @font-face { font-family: "Instrument Serif"; src: url(assets/fonts/InstrumentSerif-latin.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
   @font-face { font-family: "Onest"; src: url(assets/fonts/Onest-latin.woff2) format("woff2"); font-weight: 300 700; font-style: normal; font-display: swap; }
@@ -680,18 +680,23 @@
 <div id="scroll-space" aria-hidden="true"></div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="./assets/vendor/lenis.min.js"></script>
 <script type="importmap">
 { "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  "three": "./assets/vendor/three-bundle.min.js",
+  "three/addons/loaders/GLTFLoader.js": "./assets/vendor/three-bundle.min.js",
+  "three/addons/libs/meshopt_decoder.module.js": "./assets/vendor/three-bundle.min.js",
+  "three/addons/postprocessing/EffectComposer.js": "./assets/vendor/three-bundle.min.js",
+  "three/addons/postprocessing/RenderPass.js": "./assets/vendor/three-bundle.min.js",
+  "three/addons/postprocessing/UnrealBloomPass.js": "./assets/vendor/three-bundle.min.js",
+  "three/addons/postprocessing/OutputPass.js": "./assets/vendor/three-bundle.min.js",
+  "three/addons/postprocessing/ShaderPass.js": "./assets/vendor/three-bundle.min.js"
 } }
 </script>
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
@@ -1060,8 +1065,7 @@ function starfield(n, rMin, rMax, size, c) {
 
 /* ================= load ================= */
 const loader = new GLTFLoader(); loader.setMeshoptDecoder(MeshoptDecoder);
-loader.setKTX2Loader(new KTX2Loader().setTranscoderPath('https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/libs/basis/').detectSupport(renderer));
-const FILES = { outpost: 'assets/models/outpost_ktx.glb', setup: 'assets/models/setup_ktx.glb', ps5: 'assets/models/ps5.glb', pad: 'assets/models/dualsense_ktx.glb', hp: 'assets/models/headphones.glb' };
+const FILES = { outpost: 'assets/models/outpost.glb', setup: 'assets/models/setup.glb', ps5: 'assets/models/ps5.glb', pad: 'assets/models/dualsense.glb', hp: 'assets/models/headphones.glb' };
 let done = 0;
 async function loadOne(name) {
   const src = window.__GLB && window.__GLB[name] ? 'data:application/octet-stream;base64,' + window.__GLB[name] : FILES[name];
@@ -1570,7 +1574,7 @@ progress(0.95);
 const decoded = imgs => Promise.all(imgs.map(im => (im.complete && im.naturalWidth ? (im.decode ? im.decode().catch(() => {}) : Promise.resolve()) : new Promise(r => { im.addEventListener('load', () => (im.decode ? im.decode().catch(() => {}).then(r) : r()), { once: true }); im.addEventListener('error', r, { once: true }); }))));
 await Promise.race([
   Promise.all([buildPlayer(), decoded([...document.querySelectorAll('.ring-item img, .tiles img')])]),
-  new Promise(r => setTimeout(r, 9000))      // never keep a visitor waiting longer than this on a slow connection
+  new Promise(r => setTimeout(r, 5000))      // never keep a visitor waiting longer than this on a slow connection
 ]);
 progress(1);
 requestAnimationFrame(frame);
